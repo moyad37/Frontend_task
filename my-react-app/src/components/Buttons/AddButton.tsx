@@ -14,7 +14,7 @@ const AddButton = ({ButtonColor, ButtonStyle}:Props) =>
     console.log(color);
     bodyRef.current.className = color;
   }
-  
+
   //to change text-color freom (white, Balck) of the button, does not work
   let textColor = ButtonColor;
   useEffect(() => {
@@ -45,7 +45,7 @@ const AddButton = ({ButtonColor, ButtonStyle}:Props) =>
   */
   return(
     <>
-    <button onClick={ () => handleColor(ButtonColor)} className={clsx(ButtonColor, ButtonStyle)} id="myButton"> Button Color Class: {ButtonColor} </button>
+    <button onClick={ () => handleColor(ButtonColor)} className={clsx(ButtonColor, ButtonStyle)}> Button Color Class: {ButtonColor} </button>
     </>
   )
 }
