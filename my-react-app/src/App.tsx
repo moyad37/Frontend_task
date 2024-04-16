@@ -1,44 +1,11 @@
-import { useState, useRef } from 'react'
+import { React, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
+import Buttons from './components/Buttons/Buttons';
 
 //type component
 
-
-function AddButton(props: { class: string; })
-{
-  const bodyRef = useRef(document.body);
-  
-  const handleColor = (color: string) => {
-    console.log(color);
-    bodyRef.current.className = color;
-  }
-  return(
-    <>
-    <button onClick={ () => handleColor(props.class)} className={props.class} id="myButton"> ClassName : {props.class.substring(3)} </button>
-    </>
-  )
-}
-
-function Buttons()
-{
-  return(
-    <>
-      <AddButton class="bg-red-400"/>
-      <AddButton class="bg-blue-400"/>
-      <AddButton class="bg-green-400"/>
-      <AddButton class="bg-stone-50 border-2 border-black-600 text-slate-800"/>
-      <AddButton class="bg-slate-800 border-2 border-white-600 text-zinc-50"/>
-      <AddButton class="bg-orange-400"/>
-      <AddButton class="bg-yellow-400"/>
-      <AddButton class="bg-pink-400"/>
-      <AddButton class="bg-purple-400"/>
-      <AddButton class="bg-teal-400"/>
-    </>
-  )
-}
 
 function App() {
   const [count, setCount] = useState(0)
@@ -66,7 +33,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
 
-      <Buttons/>
+      <Buttons />
     </>
   )
 }

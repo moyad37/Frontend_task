@@ -13,18 +13,13 @@
   text-align: center;
 }
 
-#myButton{
-  padding: 20px;
-  display: block;
-  border-radius: 10%;
-  margin: auto;
-  margin-top: 25px;
-  border: 1px white solid;
-}
+
 #myButton:hover{
   transform: translateY(-3px);
   transition-duration: 0.3s;
 }
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
