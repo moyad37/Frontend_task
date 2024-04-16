@@ -17,7 +17,7 @@ const Buttons = () =>
         "bg-teal-400"
     ];
 
-    const [buttonStyle, setButtonStyle] = useState(["p-8", "m-4" ,"border-2", "rounded-lg", "hover:-translate-y-6"]);
+    const [buttonStyle, setButtonStyle] = useState(["p-8", "m-4" ,"border-2", "rounded-lg", "hover:-translate-y-2", "duration-150"]);
 
     //to change text-color freom (white, Balck) of the button, does not work
     useEffect(() => {
