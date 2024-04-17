@@ -1,12 +1,11 @@
-import {useEffect, useRef } from 'react'
+import {useRef } from 'react'
 import clsx from 'clsx';
 
 type Props = {
-    ButtonColor:string;
-    ButtonStyle:string;
+    buttonColor:string;
 }
 
-const AddButton = ({ButtonColor, ButtonStyle}:Props) =>
+const AddButton = ({buttonColor}:Props) =>
 {
   const bodyRef = useRef(document.body);
   
@@ -14,39 +13,9 @@ const AddButton = ({ButtonColor, ButtonStyle}:Props) =>
     console.log(color);
     bodyRef.current.className = color;
   }
-
-  //to change text-color freom (white, Balck) of the button, does not work
-  let textColor = ButtonColor;
-  useEffect(() => {
-    if(textColor.includes("change-whilte-color"))
-        {
-            textColor += " text-slate-950";
-        }
-        else if (textColor.includes("change-black-color"))
-        {
-            textColor += " text-zinc-50";
-        }
-}, []);
-
-
-
-
-/*
-  const checkTextColor = (textColor) => {
-    if(textColor.includes("change-whilte-color"))
-    {
-        textColor += " text-slate-950";
-    }
-    else if (textColor.includes("change-black-color"))
-    {
-        textColor += " text-zinc-50";
-    }
-  }
-  */
+  const textColor = buttonColor.includes("slate-800") ? "text-white" : undefined;
   return(
-    <>
-    <button onClick={ () => handleColor(ButtonColor)} className={clsx(ButtonColor, ButtonStyle)}> Button Color Class: {ButtonColor} </button>
-    </>
+    <button onClick={ () => handleColor(buttonColor)} className={clsx("p-8 m-4 border-2 rounded-lg hover:-translate-y-2 duration-15", buttonColor, textColor)}> Button Color Class: {buttonColor} </button>
   )
 }
 
