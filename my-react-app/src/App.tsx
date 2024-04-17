@@ -1,11 +1,8 @@
-import './App.css'
-import Buttons from './components/Buttons/Buttons';
+import "./App.css";
+import Buttons from "./components/Buttons/Buttons";
 
 function App() {
-
-  return (
-      <Buttons />
-  )
+  return <Buttons />;
 }
 
-export default App
+export default App;
