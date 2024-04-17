@@ -1,6 +1,5 @@
 import AddButton from './AddButton';
 
-
 function Buttons()
 {
     const colorsClasses = [
