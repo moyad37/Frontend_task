@@ -19,7 +19,7 @@ const ColorfulButton = ({ buttonColor }: Props) => {
     <button
       onClick={() => handleColor(buttonColor)}
       className={clsx(
-        "p-8 m-4 border-2 rounded-lg hover:-translate-y-2 duration-15",
+        "p-8 m-4 border-2 rounded-lg hover:-translate-y-2 duration-15 text-white",
         buttonColor,
         textColor
       )}
