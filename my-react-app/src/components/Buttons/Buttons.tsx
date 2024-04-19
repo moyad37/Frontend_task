@@ -1,7 +1,7 @@
 import ColorfulButton from "./ColorfulButton";
 
 type Props = {
-  layout?: string;
+  layout?: "flex" | "grid";
 };
 
 const Buttons = ({ layout }: Props) => {
@@ -17,22 +17,16 @@ const Buttons = ({ layout }: Props) => {
     "bg-purple-400",
     "bg-teal-400",
   ];
-  const layoutClass = () => {
-    if (layout === "flex") {
-      return "flex flex-column flex-wrap";
-    } else if (layout === "grid") {
-      return "grid grid-cols-3";
-    } else {
-      return undefined;
-    }
-  };
+
+  const layoutClass =
+    layout === "flex"
+      ? "flex flex-column flex-wrap"
+      : "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
 
   return (
     <div className="container">
-      <h1 className="m-4 text-2xl font-bold">
-        {layout === "grid" || layout === "flex" ? layout : ""}
-      </h1>
-      <div className={layoutClass()}>
+      <h1 className="m-4 text-2xl font-bold">{layout}</h1>
+      <div className={layoutClass}>
         {colorClasses.map((color, index) => (
           <ColorfulButton key={index} buttonIndex={index} buttonColor={color} />
         ))}

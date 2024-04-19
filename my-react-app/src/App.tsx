@@ -4,8 +4,8 @@ import Buttons from "./components/Buttons/Buttons";
 function App() {
   return (
     <div className="container mx-auto">
-      <Buttons layout={"grid"} />
-      <Buttons layout={"flex"} />
+      <Buttons layout="grid" />
+      <Buttons layout="flex" />
     </div>
   );
 }
