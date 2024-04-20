@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import { useState } from "react";
 import ColorfulButton from "./ColorfulButton";
 
 type Props = {
@@ -22,13 +24,33 @@ const Buttons = ({ layout }: Props) => {
     layout === "flex"
       ? "flex flex-column flex-wrap"
       : "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
+  const [containerColor, setContainerColor] = useState("");
 
   return (
-    <div className="container">
-      <h1 className="m-4 text-2xl font-bold">{layout}</h1>
+    <div
+      className={clsx(
+        "container w-full p-6 rounded-xl border-2",
+        containerColor
+      )}
+    >
+      <h1
+        className={clsx(
+          "m-4 text-2xl font-bold",
+          containerColor === "bg-slate-800" ? "text-white" : ""
+        )}
+      >
+        {layout}
+      </h1>
       <div className={layoutClass}>
         {colorClasses.map((color, index) => (
-          <ColorfulButton key={index} buttonIndex={index} buttonColor={color} />
+          <ColorfulButton
+            key={index}
+            buttonIndex={index}
+            buttonColor={color}
+            onButtonClick={() => {
+              setContainerColor(color);
+            }}
+          />
         ))}
       </div>
     </div>
