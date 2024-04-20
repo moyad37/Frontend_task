@@ -3,9 +3,10 @@ import clsx from "clsx";
 
 type Props = {
   buttonColor: string;
+  buttonIndex: number;
 };
 
-const ColorfulButton = ({ buttonColor }: Props) => {
+const ColorfulButton = ({ buttonIndex, buttonColor }: Props) => {
   const bodyRef = useRef(document.body);
 
   const handleColor = (color: string) => {
@@ -19,12 +20,12 @@ const ColorfulButton = ({ buttonColor }: Props) => {
     <button
       onClick={() => handleColor(buttonColor)}
       className={clsx(
-        "p-8 m-4 border-2 rounded-lg hover:-translate-y-2 duration-15",
+        "p-8 border-2 rounded-lg hover:-translate-y-2 duration-15 basis-full md:basis-2/4 lg:basis-1/4",
         buttonColor,
         textColor
       )}
     >
-      Button Color Class: {buttonColor}
+      Index: {buttonIndex}
     </button>
   );
 };
