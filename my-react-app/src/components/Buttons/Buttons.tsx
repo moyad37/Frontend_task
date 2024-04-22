@@ -7,6 +7,7 @@ type Props = {
 };
 
 const Buttons = ({ layout }: Props) => {
+  const [containerColor, setContainerColor] = useState("");
   const colorClasses = [
     "bg-red-400",
     "bg-blue-400",
@@ -24,7 +25,6 @@ const Buttons = ({ layout }: Props) => {
     layout === "flex"
       ? "flex flex-column flex-wrap"
       : "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
-  const [containerColor, setContainerColor] = useState("");
 
   return (
     <div
@@ -47,7 +47,7 @@ const Buttons = ({ layout }: Props) => {
             key={index}
             buttonIndex={index}
             buttonColor={color}
-            onButtonClick={() => {
+            onChangeBackgroundColor={() => {
               setContainerColor(color);
             }}
           />

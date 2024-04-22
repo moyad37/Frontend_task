@@ -3,13 +3,17 @@ import clsx from "clsx";
 type Props = {
   buttonColor: string;
   buttonIndex: number;
-  onButtonClick: (color: string) => void;
+  onChangeBackgroundColor: (color: string) => void;
 };
 
-const ColorfulButton = ({ buttonIndex, buttonColor, onButtonClick }: Props) => {
+const ColorfulButton = ({
+  buttonIndex,
+  buttonColor,
+  onChangeBackgroundColor,
+}: Props) => {
   const handleColor = (color: string) => {
     console.log(color);
-    onButtonClick(color);
+    onChangeBackgroundColor(color);
   };
   const textColor = buttonColor.includes("slate-800")
     ? "text-white"
