@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react";
-import FootballDataItem from "./FootballDataItem";
+import DataItem from "./DataItem";
 
-type FootballData = {
+type Data = {
   id: number;
-  name: string;
-  country: string;
-  founded: number;
-  stadium: string;
-  coach: string;
-  captain: string;
-  league: string;
-  players: number;
+  title: string;
+  year: string;
+  genre: string;
+  director: string;
+  actors: string;
+  language: string;
+  production: string;
+  website: string;
 };
 
-const GetFootballData = () => {
-  const [data, setData] = useState<FootballData[] | null>(null);
+const GetData = () => {
+  const [data, setData] = useState<Data[] | null>(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://freetestapi.com/api/v1/footballs")
+    fetch("https://freetestapi.com/api/v1/movies")
       .then((Response) => {
         if (!Response.ok) {
           throw new Error("Network response was not ok");
@@ -48,11 +48,11 @@ const GetFootballData = () => {
   return (
     <div className="container flex flex-row flex-wrap">
       {data &&
-        data.map((item: FootballData, index: number) => (
-          <FootballDataItem key={index} data={item} />
+        data.map((item: Data, index: number) => (
+          <DataItem key={index} data={item} />
         ))}
     </div>
   );
 };
 
-export default GetFootballData;
+export default GetData;
