@@ -3,7 +3,7 @@ import Buttons from "./components/Buttons/Buttons";
 
 function App() {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto w-full">
       <Buttons layout="grid" />
       <Buttons layout="flex" />
     </div>
