@@ -1,6 +1,6 @@
 //import { useState, useEffect } from "react";
 import DataItem from "./DataItem";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 type Data = {
@@ -16,27 +16,41 @@ type Data = {
 };
 
 const GetData = () => {
+  //Using Axios & Tanstack query
+  const queryClient = useQueryClient();
   const postQuery = useQuery({
     queryKey: ["posts"],
     queryFn: async () => {
       const response = await axios.get("https://freetestapi.com/api/v1/movies");
-      //const response = await axios.get("data.json");
+      queryClient.invalidateQueries(["posts"]);
       const data = await response.data;
       return data;
     },
   });
+  const refreshData = async () => {
+    await queryClient.invalidateQueries(["posts"]);
+  };
 
   if (postQuery.isLoading) return <h1>Loading....</h1>;
   if (postQuery.isError) return <h1>Error loading data!!!</h1>;
 
   return (
-    <div className="flex flex-wrap">
-      {postQuery.data.map((item: Data) => (
-        <DataItem key={item.id} data={item} />
-      ))}
-    </div>
+    <>
+      <button
+        onClick={refreshData}
+        className="bg-red-300 border-2 p-7 rounded-2xl my-3 hover:bg-red-400"
+      >
+        Refresh Data
+      </button>
+      <div className="flex flex-wrap">
+        {postQuery.data.map((item: Data) => (
+          <DataItem key={item.id} data={item} />
+        ))}
+      </div>
+    </>
   );
 
+  //Using Fetch
   /*
   const [data, setData] = useState<Data[] | null>(null);
   const [error, setError] = useState(null);
