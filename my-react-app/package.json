@@ -17,8 +17,11 @@
     "axios": "^1.6.8",
     "clsx": "^2.1.0",
     "react": "^18.2.0",
+    "react-country-region-selector": "^3.6.1",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.3",
     "react-modal": "^3.16.1",
+    "react-phone-number-input": "^3.4.1",
     "react-query": "^3.39.3"
   },
   "devDependencies": {
