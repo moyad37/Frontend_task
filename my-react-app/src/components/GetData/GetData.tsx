@@ -2,6 +2,7 @@
 import DataItem from "./DataItem";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useEffect } from "react";
 
 type Data = {
   id: number;
@@ -22,14 +23,15 @@ const GetData = () => {
     queryKey: ["posts"],
     queryFn: async () => {
       const response = await axios.get("https://freetestapi.com/api/v1/movies");
-      queryClient.invalidateQueries(["posts"]);
+      //queryClient.invalidateQueries({ queryKey: ["posts"] });
       const data = await response.data;
       return data;
     },
   });
-  const refreshData = async () => {
-    await queryClient.invalidateQueries(["posts"]);
-  };
+
+  function refreshData() {
+    queryClient.invalidateQueries({ queryKey: ["posts"] });
+  }
 
   if (postQuery.isLoading) return <h1>Loading....</h1>;
   if (postQuery.isError) return <h1>Error loading data!!!</h1>;
