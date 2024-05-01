@@ -1,8 +1,8 @@
-import { Component } from "react";
 import PhoneInput from "react-phone-number-input/input";
 import { useForm } from "react-hook-form";
 import "react-phone-number-input/style.css";
-import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
+import CountryList from "./CountryList";
+import { useState } from "react";
 
 interface FormData {
   firstName: string;
@@ -15,44 +15,15 @@ interface FormData {
   phoneNumber?: string;
 }
 
-class CountryList extends Component {
-  static this: any;
-  constructor(props) {
-    super(props);
-    this.state = { country: "", region: "" };
-  }
-  giveCountry() {
-    return this.state;
-  }
-  selectCountry(val) {
-    this.setState({ country: val });
-  }
-
-  selectRegion(val) {
-    this.setState({ region: val });
-  }
-
-  render() {
-    const { country, region } = this.state;
-    return (
-      <div>
-        <CountryDropdown
-          classes="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
-          value={country}
-          onChange={(val) => this.selectCountry(val)}
-        />
-        <RegionDropdown
-          classes="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
-          country={country}
-          value={region}
-          onChange={(val) => this.selectRegion(val)}
-        />
-      </div>
-    );
-  }
-}
-
 const Form = () => {
+  const [check, setCheck] = useState(false);
+  /*  const SubmitTrue = () => {
+    return check ? (
+      <p className="bg-green-300 p-3 text-white rounded-lg m-auto">
+        Submit successful
+      </p>
+    ) : null;
+  }; */
   const {
     register,
     handleSubmit,
@@ -63,6 +34,7 @@ const Form = () => {
 
   const onSubmit = (data: FormData) => {
     console.log(data);
+    setCheck(true);
   };
 
   return (
@@ -171,7 +143,6 @@ const Form = () => {
         <label className="my-2 text-xl font-bold" htmlFor="phoneNumber">
           Phone Number
         </label>
-
         <PhoneInput
           className="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
           placeholder="Enter phone number"
@@ -183,13 +154,18 @@ const Form = () => {
         />
       </div>
 
-      <div className="form-group m-5 p-3 flex flex-col items-center basis-full">
+      <div className="form-group m-5 p-3 flex flex-row justify-end items-center basis-full">
         <button
           className="p-4 rounded-xl bg-violet-500 text-white hover:bg-violet-400 font-bold items-end max-h-16 max-w-40 min-w-32 basis-full"
           type="submit"
         >
           Submit
         </button>
+        {check && (
+          <p className="bg-green-300 p-3 text-white rounded-lg my-auto mx-2">
+            Submit successful
+          </p>
+        )}
       </div>
     </form>
   );
