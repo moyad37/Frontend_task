@@ -1,46 +1,40 @@
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import { Component } from "react";
+import { SetStateAction, useState } from "react";
+import { forwardRef, useRef, useImperativeHandle } from "react";
 
-type CountryType = {
+/* type CountryType = {
   country?: string;
   region?: string;
-};
+}; */
 
-class CountryList extends Component {
-  static this: CountryType;
-  constructor(props: CountryType) {
-    super(props);
-    this.state = { country: "", region: "" };
-  }
-  giveCountry() {
-    return this.state;
-  }
-  selectCountry(val: string) {
-    this.setState({ country: val });
-  }
+const CountryList = forwardRef((_props, ref) => {
+  const [country, setCountry] = useState("");
+  const [region, setRegion] = useState("");
 
-  selectRegion(val: string) {
-    this.setState({ region: val });
-  }
+  const selectCountry = (val: SetStateAction<string>) => {
+    setCountry(val);
+    setRegion(""); // Reset region when country changes
+  };
 
-  render() {
-    const { country, region } = this.state;
-    return (
-      <div>
-        <CountryDropdown
-          classes="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
-          value={country}
-          onChange={(val) => this.selectCountry(val)}
-        />
-        <RegionDropdown
-          classes="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
-          country={country}
-          value={region}
-          onChange={(val) => this.selectRegion(val)}
-        />
-      </div>
-    );
-  }
-}
+  const selectRegion = (val: SetStateAction<string>) => {
+    setRegion(val);
+  };
+
+  return (
+    <div ref={ref}>
+      <CountryDropdown
+        classes="px-2 w-full border-2 rounded-lg hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
+        value={country}
+        onChange={(val) => selectCountry(val)}
+      />
+      <RegionDropdown
+        classes="px-2 w-full border-2 rounded-lg hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
+        country={country}
+        value={region}
+        onChange={(val) => selectRegion(val)}
+      />
+    </div>
+  );
+});
 
 export default CountryList;
