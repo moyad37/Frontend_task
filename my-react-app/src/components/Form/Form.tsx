@@ -5,8 +5,22 @@ import "react-phone-number-input/style.css";
 import { useState } from "react";
 import clsx from "clsx";
 import Input from "./Input";
+import { z, ZodError } from "zod";
+import { E164Number } from "libphonenumber-js";
+import { Value } from "react-phone-number-input/core";
 
-interface FormData {
+const schema = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  title: z.string().optional(),
+  street: z.string().optional(),
+  city: z.string().optional(),
+  zip: z.number().optional(),
+  country: z.string().optional(),
+  phoneNumber: z.string().optional(),
+});
+
+/* interface FormData {
   firstName: string;
   lastName: string;
   title?: string;
@@ -15,34 +29,50 @@ interface FormData {
   zip: string;
   country: string;
   phoneNumber?: string;
-}
+} */
 
 const Form = () => {
   const [check, setCheck] = useState(false);
+  const [checkError, setCheckError] = useState(false);
   const [scale, setScale] = useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { isValid, isDirty },
     setValue,
     getValues,
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
-    if (isValid) {
-      setCheck(true);
-      setScale(true);
-      setTimeout(() => {
-        setScale(false);
-      }, 100);
-      setTimeout(() => {
-        setCheck(false);
-      }, 4500);
+    try {
+      schema.parse(data);
+      if (isValid) {
+        setCheck(true);
+        setScale(true);
+        setTimeout(() => {
+          setScale(false);
+        }, 100);
+
+        setTimeout(() => {
+          setCheck(false);
+        }, 3500);
+      }
+      console.log("Form data:", data);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        setCheckError(true);
+        setTimeout(() => {
+          setCheckError(false);
+        }, 3500);
+        console.error("Validation errors:", error.errors);
+      } else {
+        throw error;
+      }
     }
   };
   const scaleVisibility = scale ? "scale-0" : "";
+
   return (
     <form
       className="border-2 rounded-lg p-3 flex flex-row flex-wrap bg-slate-50"
@@ -50,64 +80,44 @@ const Form = () => {
     >
       <Input
         register={register}
-        type={"text"}
-        placeholder={"Your first name"}
-        name={"firstName"}
-        errors={errors}
-        required={true}
+        type="text"
+        placeholder="Your first name"
+        name="firstName"
+        onBlur={register("firstName").onBlur}
       />
 
       <Input
         register={register}
-        type={"text"}
-        placeholder={"Your last name"}
-        name={"lastName"}
-        errors={errors}
-        required={true}
+        type="text"
+        placeholder="Your last name"
+        name="lastName"
+        onBlur={register("lastName").onBlur}
+      />
+
+      <Input register={register} type="text" name="Title" />
+
+      <Input
+        register={register}
+        type="text"
+        name="Street"
+        className="md:basis-1/4"
       />
 
       <Input
         register={register}
-        type={"text"}
-        name={"Title"}
-        errors={errors}
-        required={false}
+        type="text"
+        name="City"
+        className="md:basis-1/4"
       />
 
       <Input
         register={register}
-        type={"text"}
-        name={"Street"}
-        errors={errors}
-        required={false}
-        addClass="md:basis-1/4"
+        type="number"
+        name="ZIP"
+        className="md:basis-1/4"
       />
 
-      <Input
-        register={register}
-        type={"text"}
-        name={"City"}
-        errors={errors}
-        required={false}
-        addClass="md:basis-1/4"
-      />
-
-      <Input
-        register={register}
-        type={"number"}
-        name={"ZIP"}
-        errors={errors}
-        required={false}
-        addClass="md:basis-1/4"
-      />
-
-      <Input
-        register={register}
-        name={"Country"}
-        errors={errors}
-        required={false}
-        CountryListBool={true}
-      />
+      <Input register={register} name="Country" CountryListBool />
 
       <div className="form-group m-5 p-3 flex flex-col items-start basis-full md:basis-2/5">
         <label className="my-2 text-xl font-bold" htmlFor="phoneNumber">
@@ -130,7 +140,7 @@ const Form = () => {
             isValid ? "bg-violet-500 hover:bg-violet-400" : "bg-gray-200"
           )}
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || !isDirty}
         >
           Submit
         </button>
@@ -142,6 +152,16 @@ const Form = () => {
             )}
           >
             Submit successful
+          </p>
+        )}
+        {checkError && (
+          <p
+            className={clsx(
+              "bg-red-300 p-3 absolute -top-10 text-white rounded-lg my-auto duration-500",
+              scaleVisibility
+            )}
+          >
+            Submit faild
           </p>
         )}
       </div>
