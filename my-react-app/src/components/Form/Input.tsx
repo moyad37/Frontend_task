@@ -1,15 +1,12 @@
 import clsx from "clsx";
-import {ComponentPropsWithoutRef, forwardRef} from "react";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 
-interface Props extends ComponentPropsWithoutRef<'input'> {
+interface Props extends ComponentPropsWithoutRef<"input"> {
   error?: string | boolean;
   required?: boolean;
 }
 const Input = forwardRef<HTMLInputElement, Props>(
-  (
-    { name, className, error, required, ...rest },
-    ref
-  ) => {
+  ({ name, className, error, required, ...rest }, ref) => {
     return (
       <div
         className={clsx(
@@ -21,11 +18,11 @@ const Input = forwardRef<HTMLInputElement, Props>(
           {name}
         </label>
         <input
-            {...rest}
-            name={name}
-            required={required}
-            ref={ref}
-            className="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300"
+          {...rest}
+          name={name}
+          required={required}
+          ref={ref}
+          className="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300"
         />
         {error && (
           <span className="p-2 text-white bg-red-400 my-1 rounded-md">

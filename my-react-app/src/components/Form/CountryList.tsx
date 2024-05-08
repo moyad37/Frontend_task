@@ -7,13 +7,14 @@ import { forwardRef, useRef, useImperativeHandle } from "react";
   region?: string;
 }; */
 
-const CountryList = forwardRef((_props, ref) => {
+const CountryList = forwardRef(({ onChange }, ref) => {
   const [country, setCountry] = useState("");
   const [region, setRegion] = useState("");
 
   const selectCountry = (val: SetStateAction<string>) => {
     setCountry(val);
     setRegion(""); // Reset region when country changes
+    onChange(val);
   };
 
   const selectRegion = (val: SetStateAction<string>) => {
