@@ -13,10 +13,22 @@ const schema = z.object({
   title: z.string().optional(),
   street: z.string().optional(),
   city: z.string().optional(),
-  zip: z
-    .preprocess((a) => parseInt(z.string().parse(a), 10), z.number())
+  zip: z.coerce.number().optional(),
+  /* CountryList: z.coerce
+    .string(
+      z.object({
+        country: z.string().optional(),
+        region: z.string().optional(),
+      })
+    )
+    .optional(), */
+  CountryList: z
+    .object({
+      country: z.string().optional(),
+      region: z.string().optional(),
+    })
+
     .optional(),
-  country: z.string().optional(),
   phoneNumber: z.string().optional(),
 });
 
@@ -28,6 +40,7 @@ const Form = () => {
     control,
     handleSubmit,
     formState: { isValid, isDirty, errors },
+    setValue,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -88,14 +101,26 @@ const Form = () => {
       </div>
 
       <div className="form-group m-5 p-3 flex flex-col items-start basis-full md:basis-2/5">
-        <label className="my-2 text-xl font-bold" htmlFor="country">
+        <label className="my-2 text-xl font-bold" htmlFor="CountryList">
           Country
         </label>
         <Controller
           control={control}
-          name="country"
-          render={({ field: { onChange } }) => (
-            <CountryList onChange={onChange} />
+          name="CountryList"
+          render={({ field: { value, onChange } }) => (
+            <CountryList
+              //{...register("CountryList")}
+              error={errors.CountryList?.message}
+              onChange={(val) => {
+                onChange(val.country);
+                setValue("CountryList", val);
+              }}
+              value={value}
+              region={value?.region}
+              country={value?.region}
+
+              //getReg={(val: string) => console.log(val)}
+            />
           )}
         />
       </div>
@@ -109,7 +134,7 @@ const Form = () => {
               : "bg-gray-200"
           )}
           type="submit"
-          disabled={!isValid || !isDirty}
+          //disabled={!isValid || !isDirty}
         >
           Submit
         </button>
