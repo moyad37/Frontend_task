@@ -5,7 +5,7 @@ import clsx from "clsx";
 import Input from "./Input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CountryList from "./CountryList";
+import {CountryDropdown, RegionDropdown} from "react-country-region-selector";
 
 const schema = z.object({
   firstName: z.string().min(1, "firstName is Required"),
@@ -22,13 +22,8 @@ const schema = z.object({
       })
     )
     .optional(), */
-  CountryList: z
-    .object({
-      country: z.string().optional(),
-      region: z.string().optional(),
-    })
-
-    .optional(),
+  country: z.string().optional(),
+  region: z.string().optional(),
   phoneNumber: z.string().optional(),
 });
 
@@ -39,8 +34,8 @@ const Form = () => {
     register,
     control,
     handleSubmit,
+      watch,
     formState: { isValid, isDirty, errors },
-    setValue,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -105,23 +100,27 @@ const Form = () => {
           Country
         </label>
         <Controller
-          control={control}
-          name="CountryList"
-          render={({ field: { value, onChange } }) => (
-            <CountryList
-              //{...register("CountryList")}
-              error={errors.CountryList?.message}
-              onChange={(val) => {
-                onChange(val.country);
-                setValue("CountryList", val);
-              }}
-              value={value}
-              region={value?.region}
-              country={value?.region}
-
-              //getReg={(val: string) => console.log(val)}
-            />
-          )}
+            control={control}
+            name="country"
+            render={({ field: { value, onChange } }) => (
+                <CountryDropdown
+                    classes="px-2 w-full border-2 rounded-lg hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
+                    value={value ?? ""}
+                    onChange={onChange}
+                />
+            )}
+        />
+        <Controller
+            control={control}
+            name="region"
+            render={({ field: { value, onChange } }) => (
+                <RegionDropdown
+                    classes="px-2 w-full border-2 rounded-lg hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
+                    country={watch("country") ?? ""}
+                    value={value ?? ""}
+                    onChange={onChange}
+                />
+            )}
         />
       </div>
 
