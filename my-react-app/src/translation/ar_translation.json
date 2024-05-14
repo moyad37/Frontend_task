@@ -1,0 +1,16 @@
+{
+    "hello": "مرحبا",
+    "submit": "إرسال",
+    "first name" : "الاسم الاول",
+    "last name" : "اسم العائلة",
+    "Phone Number" : " رقم جوال",
+    "Country" : "بلد",
+    "title" : "لقب",
+    "Your title" : "لقبك",
+    "Your first name" : "اسمك الاول",
+    "Your last name" : "اسم العائلة",
+    "street" : "مكان السكن",
+    "city" : "المدينة",
+    "zip" : "رقم الحي",
+    "Select Language": "اختر لغة"
+}

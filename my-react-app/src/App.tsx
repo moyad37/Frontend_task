@@ -1,7 +1,9 @@
 import "./App.css";
-import { useEffect } from "react";
+
 import Form from "./components/Form/Form";
-import GetData from "./components/GetData/GetData";
+//import GetData from "./components/GetData/GetData";
+import LanguageSelector from "./components/LanguageSelector/LanguageSelector";
+
 //import { useTranslation } from "react-i18next";
 /* setOptions({
   locale: localeDe,
@@ -9,11 +11,13 @@ import GetData from "./components/GetData/GetData";
   themeVariant: "light",
 });
  */
+
 function App() {
   // const { t } = useTranslation();
 
   return (
-    <div className="container mx-auto w-full">
+    <div className="container mx-auto w-full relative">
+      <LanguageSelector />
       {/*<Buttons layout="grid" />*/}
       {/*<Buttons layout="flex" />*/}
       {/* <GetData /> */}
