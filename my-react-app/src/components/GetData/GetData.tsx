@@ -17,6 +17,7 @@ type Data = {
 };
 
 const GetData = () => {
+  //78n.changeLanguage("en-US");
   //Using Axios & Tanstack query
   const queryClient = useQueryClient();
   const postQuery = useQuery({
