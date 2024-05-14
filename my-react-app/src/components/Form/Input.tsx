@@ -1,18 +1,13 @@
 import clsx from "clsx";
 import { ComponentPropsWithoutRef, forwardRef } from "react";
-import { useTranslation } from "react-i18next";
 interface Props extends ComponentPropsWithoutRef<"input"> {
-  labelKey?: string;
+  label?: string;
   placeholder?: string;
   error?: string | boolean;
   required?: boolean;
 }
 const Input = forwardRef<HTMLInputElement, Props>(
-  (
-    { name, className, error, required, labelKey, placeholder, ...rest },
-    ref
-  ) => {
-    const { t } = useTranslation();
+  ({ name, className, error, required, label, placeholder, ...rest }, ref) => {
     return (
       <div
         className={clsx(
@@ -21,11 +16,11 @@ const Input = forwardRef<HTMLInputElement, Props>(
         )}
       >
         <label className="my-2 text-xl font-bold" htmlFor={name}>
-          {t(labelKey)}
+          {label}
         </label>
         <input
           {...rest}
-          placeholder={t(placeholder)}
+          placeholder={placeholder}
           name={name}
           required={required}
           ref={ref}

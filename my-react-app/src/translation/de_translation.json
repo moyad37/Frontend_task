@@ -1,17 +1,13 @@
 {
-    "hello": "Hallo",
     "submit": "Senden",
-    "first name" : "Vorname",
-    "last name" : "Nachname",
-    "Phone Number" : "Telefonnummer",
-    "Enter phone number" : "Dein Telefonnummer",
-    "Country" : "Land",
+    "yourLabel" : "Dein {{label}}",
+    "firstName" : "Vorname",
+    "lastName" : "Nachname",
+    "phoneNumber" : "Telefonnummer",
+    "country" : "Land",
     "title" : "Titel",
-    "Your title" : "Dein Titel",
-    "Your first name" : "Dein Vorname",
-    "Your last name" : "Dein Nachname",
     "street" : "Straße",
     "city" : "Stadt",
     "zip" : "PLZ",
-    "Select Language": "Sprache auswählen"
+    "selectLanguage": "Sprache auswählen"
 }

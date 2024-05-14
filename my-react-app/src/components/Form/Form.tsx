@@ -45,8 +45,8 @@ const Form = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
-        labelKey="first name"
-        placeholder="Your first name"
+        label={t("firstName")}
+        placeholder={t("yourLabel", { label: t("firstName") })}
         //placeholder={t("Your first name")}
         error={errors.firstName?.message}
         {...register("firstName")}
@@ -54,33 +54,35 @@ const Form = () => {
       />
 
       <Input
-        labelKey="last name"
-        placeholder="Your last name"
+        label={t("lastName")}
+        placeholder={t("yourLabel", { label: t("lastName") })}
         error={errors.lastName?.message}
         {...register("lastName")}
         required
       />
+
       <Input
-        labelKey="title"
-        placeholder="Your title"
+        label={t("title")}
+        placeholder={t("yourLabel", { label: t("title") })}
         error={errors.title?.message}
         {...register("title")}
       />
 
       <Input
-        labelKey="street"
+        label={t("street")}
+        placeholder={t("yourLabel", { label: t("street") })}
         error={errors.street?.message}
         {...register("street")}
       />
 
       <Input
-        labelKey="city"
+        label={t("city")}
         error={errors.city?.message}
         {...register("city")}
       />
 
       <Input
-        labelKey="zip"
+        label={t("zip")}
         type="number"
         error={errors.zip?.message}
         {...register("zip")}
@@ -88,7 +90,7 @@ const Form = () => {
 
       <div className="form-group m-5 p-3 flex flex-col items-start basis-full md:basis-2/5">
         <label className="my-2 text-xl font-bold" htmlFor="phoneNumber">
-          {t("Phone Number")}
+          {t("phoneNumber")}
         </label>
         <Controller
           control={control}
@@ -96,7 +98,7 @@ const Form = () => {
           render={({ field: { value, onChange } }) => (
             <PhoneInput
               className="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
-              placeholder={t("Enter phone number")}
+              placeholder={t("yourLabel", { label: t("phoneNumber") })}
               value={value}
               onChange={onChange}
             />
@@ -106,7 +108,7 @@ const Form = () => {
 
       <div className="form-group m-5 p-3 flex flex-col items-start basis-full md:basis-2/5">
         <label className="my-2 text-xl font-bold" htmlFor="CountryList">
-          {t("Country")}
+          {t("country")}
         </label>
         <Controller
           control={control}
@@ -144,7 +146,7 @@ const Form = () => {
           type="submit"
           disabled={!isValid || !isDirty}
         >
-          {t("Submit")}
+          {t("submit")}
         </button>
       </div>
     </form>
