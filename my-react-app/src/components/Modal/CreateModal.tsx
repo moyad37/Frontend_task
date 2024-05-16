@@ -1,9 +1,10 @@
-import Modal from "react-modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+// import Modal from "react-modal";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import ModalItemList from "./ModalItemList";
-
-Modal.setAppElement("#root");
+import Modal from "react-bootstrap/Modal";
+// import Button from "react-bootstrap/Button";
+// Modal.setAppElement("#root");
 
 type Data = {
   id: number;
@@ -25,21 +26,13 @@ type Props = {
 
 const CreateModal = ({ data, isopen, setState }: Props) => {
   return (
-    <Modal
-      isOpen={isopen}
-      onRequestClose={() => setState(false)}
-      className="absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 w-fit border-2 rounded-lg bg-slate-300 p-10"
-    >
-      <ModalItemList data={data} />
-      <button
-        onClick={() => setState(false)}
-        className=" absolute top-4 right-6"
-      >
-        <FontAwesomeIcon
-          className="hover:text-red-600 hover:text-xl border-2 p-2 rounded-lg"
-          icon={faTimes}
-        />
-      </button>
+    <Modal show={isopen} onHide={setState}>
+      <Modal.Header closeButton>
+        <Modal.Title>{data.title}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <ModalItemList data={data} />
+      </Modal.Body>
     </Modal>
   );
 };

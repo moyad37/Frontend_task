@@ -26,8 +26,9 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const Formm = () => {
+const MyForm = () => {
   const { t } = useTranslation();
+
   const {
     register,
     control,
@@ -53,7 +54,7 @@ const Formm = () => {
           label={t("firstName")}
           placeholder={t("yourLabel", { label: t("firstName") })}
           error={errors.firstName?.message}
-          className="basis-full md:basis-2/4 w-full"
+          className="basis-full  w-full"
           {...register("firstName")}
         />
 
@@ -61,7 +62,7 @@ const Formm = () => {
           label={t("lastName")}
           placeholder={t("yourLabel", { label: t("lastName") })}
           error={errors.lastName?.message}
-          className="basis-full md:basis-2/4 w-full"
+          className="basis-full  w-full"
           {...register("lastName")}
         />
 
@@ -93,75 +94,6 @@ const Formm = () => {
           error={errors.zip?.message}
           {...register("zip")}
         />
-
-        {/* <Form.Label className="my-2 text-xl font-bold" htmlFor="firstName">
-          {t("firstName")}
-        </Form.Label>
-        <InputGroup className="mb-3">
-          <Form.Control
-            size="lg"
-            placeholder={t("yourLabel", { label: t("firstName") })}
-            {...register("firstName")}
-          />
-        </InputGroup>
-
-        <Form.Label className="my-2 text-xl font-bold" htmlFor="lastName">
-          {t("lastName")}
-        </Form.Label>
-        <InputGroup className="mb-3">
-          <Form.Control
-            size="lg"
-            placeholder={t("yourLabel", { label: t("lastName") })}
-            {...register("lastName")}
-          />
-        </InputGroup>
-
-        <Form.Label className="my-2 text-xl font-bold" htmlFor="title">
-          {t("title")}
-        </Form.Label>
-        <InputGroup className="mb-3">
-          <Form.Control
-            size="lg"
-            placeholder={t("yourLabel", { label: t("title") })}
-            {...register("title")}
-          />
-        </InputGroup>
-
-        <Form.Label className="my-2 text-xl font-bold" htmlFor="street">
-          {t("street")}
-        </Form.Label>
-        <InputGroup className="mb-3">
-          <Form.Control
-            size="lg"
-            placeholder={t("yourLabel", { label: t("street") })}
-            {...register("street")}
-          />
-        </InputGroup>
-
-        <Form.Label className="my-2 text-xl font-bold" htmlFor="city">
-          {t("city")}
-        </Form.Label>
-        <InputGroup className="mb-3">
-          <Form.Control
-            size="lg"
-            placeholder={t("yourLabel", { label: t("city") })}
-            {...register("city")}
-          />
-        </InputGroup>
-
-        <Form.Label className="my-2 text-xl font-bold" htmlFor="zip">
-          {t("zip")}
-        </Form.Label>
-
-        <InputGroup className="mb-3">
-          <Form.Control
-            size="lg"
-            type="number"
-            placeholder={t("yourLabel", { label: t("zip") })}
-            {...register("zip")}
-          />
-        </InputGroup>
-     */}
         <InputGroup
           size="lg"
           className="my-2 w-full border-2 rounded-lg  min-h-12 "
@@ -235,4 +167,4 @@ const Formm = () => {
   );
 };
 
-export default Formm;
+export default MyForm;
