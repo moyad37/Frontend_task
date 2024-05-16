@@ -1,4 +1,8 @@
 import clsx from "clsx";
+
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 interface Props extends ComponentPropsWithoutRef<"input"> {
   label?: string;
@@ -9,13 +13,22 @@ interface Props extends ComponentPropsWithoutRef<"input"> {
 const Input = forwardRef<HTMLInputElement, Props>(
   ({ name, className, error, required, label, placeholder, ...rest }, ref) => {
     return (
-      <div
-        className={clsx(
-          "form-group m-5 p-3 flex flex-col items-start basis-full",
-          className
-        )}
-      >
-        <label className="my-2 text-xl font-bold" htmlFor={name}>
+      <div className={clsx("flex flex-col items-start basis-full ", className)}>
+        <InputGroup className="my-2 px-2 w-full border-2 rounded-lg  min-h-12 ">
+          <Form.Label className="m-2 text-md text-xl font-bold" htmlFor={label}>
+            {label}
+          </Form.Label>
+          <Form.Control
+            {...rest}
+            name={name}
+            required={required}
+            ref={ref}
+            size="lg"
+            placeholder={placeholder}
+          />
+        </InputGroup>
+
+        {/* <label className="my-2 text-xl font-bold" htmlFor={name}>
           {label}
         </label>
         <input
@@ -25,7 +38,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
           required={required}
           ref={ref}
           className="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300"
-        />
+        /> */}
         {error && (
           <span className="p-2 text-white bg-red-400 my-1 rounded-md">
             {error}

@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { Button } from "react-bootstrap";
 //import { useRef } from "react";
 type Props = {
   buttonColor: string;
@@ -19,7 +20,7 @@ const ColorfulButton = ({
     ? "text-white"
     : undefined;
   return (
-    <button
+    <Button
       onClick={() => handleColor(buttonColor)}
       className={clsx(
         "p-8 border-2 rounded-lg hover:-translate-y-1 duration-15 basis-full md:basis-2/4 lg:basis-1/4",
@@ -28,7 +29,7 @@ const ColorfulButton = ({
       )}
     >
       Index: {buttonIndex}
-    </button>
+    </Button>
   );
 };
 
