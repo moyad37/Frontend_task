@@ -1,0 +1,13 @@
+{
+    "submit": "إرسال",
+    "yourLabel" : "{{label}}ك",
+    "firstName" : "الاسم الاول",
+    "lastName" : "اسم العائلة",
+    "phoneNumber" : " رقم جوال",
+    "country" : "بلد",
+    "title" : "لقب",
+    "street" : "مكان السكن",
+    "city" : "المدينة",
+    "zip" : "رقم الحي",
+    "selectLanguage": "اختر لغة"
+}

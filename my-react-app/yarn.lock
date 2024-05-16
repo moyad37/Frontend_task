@@ -396,17 +396,17 @@
   resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.14.1.tgz"
   integrity sha512-wQGI+LY/Py20zdUPq+XCem7JcPOyzIJBm3dli+56DJsQOHbnXZFEwgmnC6el1TPAfC8lBT3m+z69RmLykNUbew==
 
-"@tanstack/query-core@5.32.0":
-  version "5.32.0"
-  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.32.0.tgz"
-  integrity sha512-Z3flEgCat55DRXU5UMwYU1U+DgFZKA3iufyOKs+II7iRAo0uXkeU7PH5e6sOH1CGEag0IpKmZxlUFpCg6roSKw==
+"@tanstack/query-core@5.36.0":
+  version "5.36.0"
+  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.36.0.tgz"
+  integrity sha512-B5BD3pg/mztDR36i77hGcyySKKeYrbM5mnogOROTBi1SUml5ByRK7PGUUl16vvubvQC+mSnqziFG/VIy/DE3FQ==
 
-"@tanstack/react-query@^5.32.0":
-  version "5.32.0"
-  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.32.0.tgz"
-  integrity sha512-+E3UudQtarnx9A6xhpgMZapyF+aJfNBGFMgI459FnduEZqT/9KhOWnMOneZahLRt52yzskSA0AuOyLkXHK0yBA==
+"@tanstack/react-query@^5.36.0":
+  version "5.36.0"
+  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.36.0.tgz"
+  integrity sha512-BATvtM0rohwg7pRHUnxgeDiwLWRGZ8OM/4y8LImHVpecQWoH6Uhytu3Z8YV6V7hQ1sMQBFcUrGE1/e4MxR6YiA==
   dependencies:
-    "@tanstack/query-core" "5.32.0"
+    "@tanstack/query-core" "5.36.0"
 
 "@trysound/sax@0.2.0":
   version "0.2.0"
@@ -1495,10 +1495,17 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^23.11.3, "i18next@>= 23.2.3":
-  version "23.11.3"
-  resolved "https://registry.npmjs.org/i18next/-/i18next-23.11.3.tgz"
-  integrity sha512-Pq/aSKowir7JM0rj+Wa23Kb6KKDUGno/HjG+wRQu0PxoTbpQ4N89MAT0rFGvXmLkRLNMb1BbBOKGozl01dabzg==
+i18next-browser-languagedetector@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.npmjs.org/i18next-browser-languagedetector/-/i18next-browser-languagedetector-8.0.0.tgz"
+  integrity sha512-zhXdJXTTCoG39QsrOCiOabnWj2jecouOqbchu3EfhtSHxIB5Uugnm9JaizenOy39h7ne3+fLikIjeW88+rgszw==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+
+i18next@^23.11.4, "i18next@>= 23.2.3":
+  version "23.11.4"
+  resolved "https://registry.npmjs.org/i18next/-/i18next-23.11.4.tgz"
+  integrity sha512-CCUjtd5TfaCl+mLUzAA0uPSN+AVn4fP/kWCYt/hocPUwusTpMVczdrRyOBUwk6N05iH40qiKx6q1DoNJtBIwdg==
   dependencies:
     "@babel/runtime" "^7.23.2"
 

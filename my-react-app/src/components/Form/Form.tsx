@@ -5,7 +5,8 @@ import clsx from "clsx";
 import Input from "./Input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {CountryDropdown, RegionDropdown} from "react-country-region-selector";
+import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
+import { useTranslation } from "react-i18next";
 
 const schema = z.object({
   firstName: z.string().min(1, "firstName is Required"),
@@ -14,14 +15,6 @@ const schema = z.object({
   street: z.string().optional(),
   city: z.string().optional(),
   zip: z.coerce.number().optional(),
-  /* CountryList: z.coerce
-    .string(
-      z.object({
-        country: z.string().optional(),
-        region: z.string().optional(),
-      })
-    )
-    .optional(), */
   country: z.string().optional(),
   region: z.string().optional(),
   phoneNumber: z.string().optional(),
@@ -30,11 +23,12 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const Form = () => {
+  const { t } = useTranslation();
   const {
     register,
     control,
     handleSubmit,
-      watch,
+    watch,
     formState: { isValid, isDirty, errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -45,41 +39,58 @@ const Form = () => {
     console.log(data);
   };
 
-  //console.log(isDirty, isValid, errors);
-
   return (
     <form
       className="border-2 rounded-lg p-3 flex flex-row flex-wrap bg-slate-50"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
-        placeholder="Your first name"
+        label={t("firstName")}
+        placeholder={t("yourLabel", { label: t("firstName") })}
+        //placeholder={t("Your first name")}
         error={errors.firstName?.message}
         {...register("firstName")}
         required
       />
 
       <Input
-        placeholder="Your last name"
+        label={t("lastName")}
+        placeholder={t("yourLabel", { label: t("lastName") })}
         error={errors.lastName?.message}
         {...register("lastName")}
         required
       />
+
       <Input
-        placeholder="Your title"
+        label={t("title")}
+        placeholder={t("yourLabel", { label: t("title") })}
         error={errors.title?.message}
         {...register("title")}
       />
 
-      <Input error={errors.street?.message} {...register("street")} />
+      <Input
+        label={t("street")}
+        placeholder={t("yourLabel", { label: t("street") })}
+        error={errors.street?.message}
+        {...register("street")}
+      />
 
-      <Input error={errors.city?.message} {...register("city")} />
+      <Input
+        label={t("city")}
+        error={errors.city?.message}
+        {...register("city")}
+      />
 
-      <Input type="number" error={errors.zip?.message} {...register("zip")} />
+      <Input
+        label={t("zip")}
+        type="number"
+        error={errors.zip?.message}
+        {...register("zip")}
+      />
 
       <div className="form-group m-5 p-3 flex flex-col items-start basis-full md:basis-2/5">
         <label className="my-2 text-xl font-bold" htmlFor="phoneNumber">
-          Phone Number
+          {t("phoneNumber")}
         </label>
         <Controller
           control={control}
@@ -87,7 +98,7 @@ const Form = () => {
           render={({ field: { value, onChange } }) => (
             <PhoneInput
               className="px-2 w-full border-2 rounded-lg  hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
-              placeholder="Enter phone number"
+              placeholder={t("yourLabel", { label: t("phoneNumber") })}
               value={value}
               onChange={onChange}
             />
@@ -97,30 +108,30 @@ const Form = () => {
 
       <div className="form-group m-5 p-3 flex flex-col items-start basis-full md:basis-2/5">
         <label className="my-2 text-xl font-bold" htmlFor="CountryList">
-          Country
+          {t("country")}
         </label>
         <Controller
-            control={control}
-            name="country"
-            render={({ field: { value, onChange } }) => (
-                <CountryDropdown
-                    classes="px-2 w-full border-2 rounded-lg hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
-                    value={value ?? ""}
-                    onChange={onChange}
-                />
-            )}
+          control={control}
+          name="country"
+          render={({ field: { value, onChange } }) => (
+            <CountryDropdown
+              classes="px-2 w-full border-2 rounded-lg hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
+              value={value ?? ""}
+              onChange={onChange}
+            />
+          )}
         />
         <Controller
-            control={control}
-            name="region"
-            render={({ field: { value, onChange } }) => (
-                <RegionDropdown
-                    classes="px-2 w-full border-2 rounded-lg hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
-                    country={watch("country") ?? ""}
-                    value={value ?? ""}
-                    onChange={onChange}
-                />
-            )}
+          control={control}
+          name="region"
+          render={({ field: { value, onChange } }) => (
+            <RegionDropdown
+              classes="px-2 w-full border-2 rounded-lg hover:shadow-lg focus:outline-none focus:ring focus:ring-violet-300 min-h-12 text-violet-300 focus:border-neutral-300"
+              country={watch("country") ?? ""}
+              value={value ?? ""}
+              onChange={onChange}
+            />
+          )}
         />
       </div>
 
@@ -133,9 +144,9 @@ const Form = () => {
               : "bg-gray-200"
           )}
           type="submit"
-          //disabled={!isValid || !isDirty}
+          disabled={!isValid || !isDirty}
         >
-          Submit
+          {t("submit")}
         </button>
       </div>
     </form>

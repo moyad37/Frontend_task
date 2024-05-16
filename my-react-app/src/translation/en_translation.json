@@ -1,0 +1,13 @@
+{
+    "submit": "Submit",
+    "yourLabel" : "Your {{label}}",
+    "firstName" : "First Name",
+    "lastName" : "Last Name",
+    "phoneNumber" : "Phone Number",
+    "country" : "Country",
+    "title" : "Title",
+    "street" : "Street",
+    "city" : "City",
+    "zip" : "ZIP",
+    "selectLanguage": "Select language"
+}
