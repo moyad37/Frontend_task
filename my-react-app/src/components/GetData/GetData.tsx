@@ -2,6 +2,7 @@
 import DataItem from "./DataItem";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 type Data = {
   id: number;
@@ -18,6 +19,7 @@ type Data = {
 const GetData = () => {
   //78n.changeLanguage("en-US");
   //Using Axios & Tanstack query
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const postQuery = useQuery({
     queryKey: ["posts"],
@@ -41,7 +43,7 @@ const GetData = () => {
         onClick={refreshData}
         className="bg-red-300 border-2 p-7 rounded-2xl my-3 hover:bg-red-400"
       >
-        Refresh Data
+        {`${t("refresh")} ${t("data")}`}
       </button>
       <div className="flex flex-wrap">
         {postQuery.data.map((item: Data) => (

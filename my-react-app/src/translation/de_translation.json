@@ -9,5 +9,17 @@
     "street" : "Straße",
     "city" : "Stadt",
     "zip" : "PLZ",
-    "selectLanguage": "Sprache auswählen"
+    "selectLanguage": "Sprache auswählen",
+    "refresh" : "Auffrischen",
+    "data" : "Daten",
+    "open" : "Öffnen", 
+    "modal" : "Modal",
+    "form" : "Form",
+    "year" : "Jahr",
+    "genre" : "Genre",
+    "director" : "Regisseur",
+    "actors" : "Schauspieler",
+    "production" : "Produktion",
+    "language" : "Sprache",
+    "linkToWebsite" : "Link zur Website"
 }

@@ -9,5 +9,17 @@
     "street" : "مكان السكن",
     "city" : "المدينة",
     "zip" : "رقم الحي",
-    "selectLanguage": "اختر لغة"
+    "selectLanguage": "اختر لغة",
+    "refresh" : "تحديث",
+    "data" : "بيانات",
+    "open" : "فتح", 
+    "modal" : "مشروط",
+    "form" : "شكل",
+    "year" : "سنة",
+    "genre" : "النوع",
+    "director" : "مدير",
+    "actors" : "الجهات الفاعله",
+    "production" : "إنتاج",
+    "language" : "لغة",
+    "linkToWebsite" : "رابط إلى الموقع"
 }

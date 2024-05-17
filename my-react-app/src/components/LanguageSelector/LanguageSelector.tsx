@@ -20,7 +20,9 @@ const LanguageSelector = () => {
   };
   return (
     <div className="absolute -top-6 left-0">
-      <label className="mr-2 text-xl font-bold"> {t("selectLanguage")}</label>
+      <label className="mr-2 text-xl font-bold">
+        {`${t("select")} ${t("language")}`}
+      </label>
       <select
         className=" border-2 p-1 my-2 rounded-xl hover:bg-violet-100"
         value={selectedLanguage}
