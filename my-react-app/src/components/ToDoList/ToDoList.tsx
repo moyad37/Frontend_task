@@ -73,8 +73,9 @@ const TodoItem: React.FC<TodoItemProps> = ({
   return (
     <div
       className={clsx(
-        "flex justify-between mb-2 border-2 rounded-lg hover:bg-slate-100 p-2 items-center duration-1000 task-item",
-        task.completed === true ? "order-1 bg-gray-300 hover:bg-gray-300" : ""
+        "flex justify-between mb-2 border-2 rounded-lg  p-2 items-center duration-1000 task-item",
+        !task.completed ? "hover:bg-slate-100" : "",
+        task.completed ? "order-1 bg-gray-300 hover:bg-gray-300" : ""
       )}
     >
       <Checkbox checked={task.completed} onChange={handleChange} />
