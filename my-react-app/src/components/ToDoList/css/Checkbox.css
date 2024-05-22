@@ -1,0 +1,54 @@
+.custom-checkbox {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .custom-checkbox .checkmark {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #eee;
+    border: 2px solid #ccc;
+    text-align: center;
+    line-height: 16px;
+    vertical-align: middle;
+  }
+  
+  .custom-checkbox input:checked + .checkmark {
+    background-color: #21f344;
+    border-color: #21f344;
+  }
+  
+  .custom-checkbox .checkmark svg {
+    color: white;
+    font-size: 16px;
+  }
+  
+  .custom-checkbox input:checked + .mytext {
+    color: #34bf6e;
+  text-decoration: line-through;
+  }
+
+  .task-item {
+    transition: order 0.5s ease;
+  }
+  
+  /* .tasks-list-desc {
+    font-weight: bold;
+    color: #8a9a9b;
+  }
+  
+  .custom-checkbox input:checked ~ .tasktext {
+    color: #34bf6e;
+    text-decoration: line-through;
+  } */
