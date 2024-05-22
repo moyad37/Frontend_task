@@ -1,17 +1,15 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { DatePicker } from "react-rainbow-components";
 import axios from "axios";
-
+import RainbowDatepicker from "./RainbowDatepicker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
-  faPen,
-  faXmark,
-  faCheck,
+  faArrowLeft,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
-import "./css/Checkbox.css";
+import TodoItem from "./TodoItem";
 import clsx from "clsx";
 
 interface Task {
@@ -21,93 +19,6 @@ interface Task {
   date: Date | null;
 }
 
-interface RainbowDatepickerProps {
-  date: Date | null | string;
-  onChange: (date: Date) => void;
-}
-
-const Checkbox = ({ checked, onChange }) => {
-  return (
-    <label className="custom-checkbox">
-      <input type="checkbox" checked={checked} onChange={onChange} />
-      <span className="checkmark">
-        {checked && <FontAwesomeIcon icon={faCheck} />}
-      </span>
-    </label>
-  );
-};
-
-const RainbowDatepicker: React.FC<RainbowDatepickerProps> = ({
-  date,
-  onChange,
-}) => {
-  return (
-    <div>
-      <DatePicker
-        id="datePicker-1"
-        value={date}
-        onChange={(value: Date) => onChange(value)}
-        formatStyle="large"
-      />
-    </div>
-  );
-};
-
-interface TodoItemProps {
-  task: Task;
-  deleteTask: (id: string) => void;
-  toggleCompleted: (id: string) => void;
-  editTask: (task: Task) => void;
-}
-
-const TodoItem: React.FC<TodoItemProps> = ({
-  task,
-  deleteTask,
-  toggleCompleted,
-  editTask,
-}) => {
-  const handleChange = () => {
-    toggleCompleted(task._id);
-  };
-
-  return (
-    <div
-      className={clsx(
-        "flex justify-between mb-2 border-2 rounded-lg  p-2 items-center duration-1000 task-item",
-        !task.completed ? "hover:bg-slate-100" : "",
-        task.completed ? "order-1 bg-gray-300 hover:bg-gray-300" : ""
-      )}
-    >
-      <Checkbox checked={task.completed} onChange={handleChange} />
-      <div className="w-3/4">
-        <p
-          className={clsx(
-            "break-all text-xl",
-            task.completed === true ? "line-through text-gray-500" : ""
-          )}
-        >
-          {task.text}
-        </p>
-      </div>
-      <p>{task.date ? new Date(task.date).toLocaleDateString() : ""}</p>
-      <div>
-        <button
-          className="m-2 hover:text-cyan-400 hover:scale-125"
-          onClick={() => editTask(task)}
-        >
-          <FontAwesomeIcon icon={faPen} />
-        </button>
-        <button
-          className="m-2 hover:text-red-500 hover:scale-125"
-          onClick={() => deleteTask(task._id)}
-        >
-          <FontAwesomeIcon icon={faXmark} />
-        </button>
-      </div>
-    </div>
-  );
-};
-
 const TodoList: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [text, setText] = useState("");
@@ -115,9 +26,6 @@ const TodoList: React.FC = () => {
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showTable, setShowTable] = useState(false);
-
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
 
   useEffect(() => {
     axios
@@ -136,7 +44,7 @@ const TodoList: React.FC = () => {
     } else {
       addTask();
     }
-    handleClose();
+    setShowModal(false);
   };
 
   const addTask = () => {
@@ -186,7 +94,7 @@ const TodoList: React.FC = () => {
     setEditingTask(task);
     setText(task.text);
     setDate(task.date ? new Date(task.date) : new Date());
-    handleShow();
+    setShowModal(true);
   };
 
   const updateTask = () => {
@@ -224,14 +132,85 @@ const TodoList: React.FC = () => {
     return taskDate === selectedDate;
   });
 
+  const handleNextDay = () => {
+    if (date) {
+      const nextDay = new Date(date);
+      nextDay.setDate(date.getDate() + 1);
+      setDate(nextDay);
+    }
+  };
+
+  const handlePreviousDay = () => {
+    if (date) {
+      const previousDay = new Date(date);
+      previousDay.setDate(date.getDate() - 1);
+      setDate(previousDay);
+    }
+  };
+
+  const getRelativeDateString = (selectedDate: Date | null) => {
+    if (!selectedDate) return "";
+
+    const today = new Date();
+    const tomorrow = new Date(today);
+    const yesterday = new Date(today);
+
+    tomorrow.setDate(today.getDate() + 1);
+    yesterday.setDate(today.getDate() - 1);
+
+    today.setHours(0, 0, 0, 0);
+    tomorrow.setHours(0, 0, 0, 0);
+    yesterday.setHours(0, 0, 0, 0);
+
+    const selected = new Date(selectedDate);
+    selected.setHours(0, 0, 0, 0);
+
+    if (selected.getTime() === today.getTime()) {
+      return "Today";
+    } else if (selected.getTime() === tomorrow.getTime()) {
+      return "Tomorrow";
+    } else if (selected.getTime() === yesterday.getTime()) {
+      return "Yesterday";
+    } else {
+      return null;
+    }
+  };
+
   return (
     <div className="todo-list flex flex-col">
-      <div className="flex justify-between p-2 m-2 items-center">
-        <RainbowDatepicker date={date} onChange={setDate} />
-        <Button className="p-3 bg-cyan-400 w-fit" onClick={handleShow}>
+      <div className="flex justify-between my-2 items-center">
+        <Button
+          className="p-3 bg-cyan-400 w-fit"
+          onClick={() => setDate(new Date())}
+        >
+          Today
+        </Button>
+        <div className="flex justify-center basis-full">
+          <Button
+            className="bg-transparent	border-hidden	text-cyan-400 hover:text-cyan-400 hover:scale-150"
+            onClick={handlePreviousDay}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </Button>
+          <RainbowDatepicker date={date} onChange={setDate} />
+          <Button
+            className="bg-transparent	border-hidden	text-cyan-400 hover:text-cyan-400 hover:scale-150"
+            onClick={handleNextDay}
+          >
+            <FontAwesomeIcon icon={faArrowRight} />
+          </Button>
+        </div>
+        <Button
+          className="p-3 bg-cyan-400 w-fit"
+          onClick={() => setShowModal(true)}
+        >
           <FontAwesomeIcon icon={faPlus} color="white" />
         </Button>
       </div>
+      <hr />
+      <h2 className="text-cyan-400 font-bold text-xl mt-4 mb-2">
+        {getRelativeDateString(date)}
+      </h2>
       <div className="tasksContainer flex flex-col">
         {filteredTasks.map((task) => (
           <TodoItem
@@ -243,7 +222,7 @@ const TodoList: React.FC = () => {
           />
         ))}
       </div>
-      <Modal show={showModal} onHide={handleClose}>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>{editingTask ? "Edit Task" : "Add Task"}</Modal.Title>
         </Modal.Header>
@@ -259,7 +238,7 @@ const TodoList: React.FC = () => {
           <RainbowDatepicker date={date} onChange={setDate} />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
             Close
           </Button>
           <Button variant="primary" onClick={handleModalSave}>
@@ -268,7 +247,7 @@ const TodoList: React.FC = () => {
         </Modal.Footer>
       </Modal>
       <Button
-        className="p-2 w-fit bg-cyan-400"
+        className="p-3 w-fit bg-cyan-400"
         variant="primary"
         onClick={() => setShowTable(!showTable)}
       >
